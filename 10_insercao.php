@@ -25,7 +25,8 @@
         $email = $_POST['email'];
 
         // Conecta ao banco de dados
-        $servername = "localhost";
+        // É possível inserir o arquivo de conexão 
+        $servername = "localhost:3309";
         $username = "root";
         $password = "";
         $dbname = "exercicio";
@@ -37,10 +38,23 @@
             die("Falha na conexão: " . $conn->connect_error);
         }
 
+        // Insere o registro no banco de dados
+        // Insere na tabela clientes os seguintes valores
+        $sql = "INSERT INTO clientes (nome, email) VALUES('$nome', '$email')";
 
-        // Digitar PHP + SQL (1º Aqui)
+        //confere se a variável 'sql' está correta
+        if ($conn->query($sql) === TRUE) {
 
+            //exibe a mensagem
+            echo "<p style='color: green;'>Cliente cadastrado com sucesso!</p>";
+        } else {
 
+            //exibe a mensagem
+            echo "<p style='color: red;'>Erro ao cadastrar: " . $conn->error . "</p>";
+        }
+
+        //Encerra a conexão
+        $conn->close();
     }
     ?>
 </body>

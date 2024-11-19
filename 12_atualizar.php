@@ -4,7 +4,7 @@
 
 <?php
 // Conecta ao banco de dados
-$servername = "localhost";
+$servername = "localhost:3306";
 $username = "root";
 $password = "";
 $dbname = "exercicio";
@@ -34,9 +34,20 @@ if (isset($_GET['id'])) {
     }
 }
 
+//Verifica se o formulário foi enviado para atualizar o cliente
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $id = $_POST['id'];
+    $nome = $_POST['nome'];
+    $email = $_POST['email'];
 
-// Digitar PHP + SQL (1º Aqui)
+    $sql = "UPDATE clientes SET nome='$nome', email='$email' WHERE id='$id'";
 
+    if ($conn->query($sql) === TRUE) {
+        echo "<p>Cliente atualizado com sucesso!</p>";
+    } else {
+        echo "<p>Erro ao atualizar cliente: " . $conn->erro . "</p>";
+    }
+}
 
 ?>
 
